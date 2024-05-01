@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backFromPlayer"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:src="@drawable/back_64px"
+            app:tint="@color/unchangeableWhite" />
+
+        <TextView
+            android:id="@+id/videoTitleInPlayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:maxLines="2"
+            android:textColor="@color/unchangeableWhite"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/LockScreen"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:src="@drawable/lock"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center"
+        android:text="Lock"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:textColor="@color/unchangeableWhite"
+        android:textSize="@dimen/_6sdp"
+        app:layout_constraintEnd_toEndOf="@+id/LockScreen"
+        app:layout_constraintStart_toStartOf="@+id/LockScreen"
+        app:layout_constraintTop_toBottomOf="@+id/LockScreen" />
+
+
+    <ImageView
+        android:id="@+id/MuteVideo"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:src="@drawable/mute"
+        app:layout_constraintEnd_toStartOf="@+id/LockScreen"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:tint="@color/unchangeableWhite" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center"
+        android:text="Sound"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:textColor="@color/unchangeableWhite"
+        android:textSize="@dimen/_6sdp"
+        app:layout_constraintEnd_toEndOf="@+id/MuteVideo"
+        app:layout_constraintStart_toStartOf="@+id/MuteVideo"
+        app:layout_constraintTop_toBottomOf="@+id/MuteVideo" />
+
+
+    <ImageView
+        android:id="@+id/VideoSpeed"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:src="@drawable/rush"
+        app:layout_constraintEnd_toStartOf="@+id/MuteVideo"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+    <TextView
+        android:id="@+id/SelectSpeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1x"
+        android:textColor="@color/unchangeableWhite"
+        android:textSize="@dimen/_14sdp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/VideoSpeed"
+        app:layout_constraintEnd_toEndOf="@+id/VideoSpeed"
+        app:layout_constraintStart_toStartOf="@+id/VideoSpeed"
+        app:layout_constraintTop_toTopOf="@+id/VideoSpeed" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center"
+        android:text="Speed"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:textColor="@color/unchangeableWhite"
+        android:textSize="@dimen/_6sdp"
+        app:layout_constraintEnd_toEndOf="@+id/VideoSpeed"
+        app:layout_constraintStart_toStartOf="@+id/VideoSpeed"
+        app:layout_constraintTop_toBottomOf="@+id/VideoSpeed" />
+
+    <ImageView
+        android:id="@+id/RepeatVideo"
+        android:layout_width="@dimen/_18sdp"
+        android:layout_height="@dimen/_18sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:src="@drawable/repeat"
+        app:layout_constraintEnd_toStartOf="@+id/VideoSpeed"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+    <TextView
+        android:id="@+id/repeatModeIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ON"
+        android:textColor="@color/unchangeableWhite"
+        android:textSize="@dimen/_6sdp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/RepeatVideo"
+        app:layout_constraintEnd_toEndOf="@+id/RepeatVideo"
+        app:layout_constraintStart_toStartOf="@+id/RepeatVideo"
+        app:layout_constraintTop_toTopOf="@+id/RepeatVideo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center"
+        android:text="Repeat"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:textColor="@color/unchangeableWhite"
+        android:textSize="@dimen/_6sdp"
+        app:layout_constraintEnd_toEndOf="@+id/RepeatVideo"
+        app:layout_constraintStart_toStartOf="@+id/RepeatVideo"
+        app:layout_constraintTop_toBottomOf="@+id/RepeatVideo" />
+
+    <ImageView
+        android:id="@+id/SelectAudio"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:src="@drawable/pic_in_pic"
+        app:layout_constraintEnd_toStartOf="@+id/RepeatVideo"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:tint="@color/unchangeableWhite" />
+
+    <TextView
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:gravity="center_horizontal|center"
+        android:text="Picture-in-Picture Mode"
+        android:textColor="@color/unchangeableWhite"
+        android:textSize="@dimen/_6sdp"
+        app:layout_constraintEnd_toEndOf="@+id/SelectAudio"
+        app:layout_constraintStart_toStartOf="@+id/SelectAudio"
+        app:layout_constraintTop_toBottomOf="@+id/SelectAudio" />
+
+    <LinearLayout
+        android:id="@+id/chooseSpeed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#81000000"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="@dimen/_5sdp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/VideoSpeed">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/setSpeed_0.25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:text="0.25x"
+                android:textColor="@color/unchangeableWhite"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/setSpeed_0.5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:text="0.5x"
+                android:textColor="@color/unchangeableWhite"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/setSpeed_0.75"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:text="0.75x"
+                android:textColor="@color/unchangeableWhite"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/setSpeed_1.0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:text="1.0x"
+                android:textColor="@color/unchangeableWhite"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/setSpeed_1.5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:text="1.25x"
+                android:textColor="@color/unchangeableWhite"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/setSpeed_1.75"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:text="1.5x"
+                android:textColor="@color/unchangeableWhite"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/setSpeed_2.0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:text="1.75x"
+                android:textColor="@color/unchangeableWhite"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/setSpeedLast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:text="2.0x"
+                android:textColor="@color/unchangeableWhite"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/exo_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:gravity="bottom"
+                android:text="00:00:00"
+                android:textColor="@color/unchangeableWhite"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <TextView
+                android:id="@+id/exo_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:gravity="bottom"
+                android:text="00:00:00"
+                android:textColor="@color/unchangeableWhite"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.exoplayer2.ui.DefaultTimeBar
+            android:id="@+id/exo_progress_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_4sdp"
+            android:layout_marginRight="@dimen/_4sdp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/PreviousBtn"
+                android:layout_width="@dimen/_18sdp"
+                android:layout_height="@dimen/_18sdp"
+                android:src="@drawable/previous"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/PlayPauseBtn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <ImageView
+                android:id="@+id/PlayPauseBtn"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:src="@drawable/pause"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+
+
+            <ImageView
+                android:id="@+id/NextBtn"
+                android:layout_width="@dimen/_18sdp"
+                android:layout_height="@dimen/_18sdp"
+                android:src="@drawable/next"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/PlayPauseBtn"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <ImageView
+                android:id="@+id/fullScreenVideo"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_8sdp"
+                android:src="@drawable/full_creen"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center"
+                android:text="Fullscreen"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textColor="@color/unchangeableWhite"
+                android:textSize="@dimen/_6sdp"
+                app:layout_constraintEnd_toEndOf="@+id/fullScreenVideo"
+                app:layout_constraintStart_toStartOf="@+id/fullScreenVideo"
+                app:layout_constraintTop_toBottomOf="@+id/fullScreenVideo" />
+
+            <ImageView
+                android:id="@+id/rotateVideo"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:src="@drawable/vertical_phone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center"
+                android:text="Rotate"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textColor="@color/unchangeableWhite"
+                android:textSize="@dimen/_6sdp"
+                app:layout_constraintEnd_toEndOf="@+id/rotateVideo"
+                app:layout_constraintStart_toStartOf="@+id/rotateVideo"
+                app:layout_constraintTop_toBottomOf="@+id/rotateVideo" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <SeekBar
+        android:id="@+id/soundSeekbar"
+        android:layout_width="@dimen/_130sdp"
+        android:layout_height="wrap_content"
+        android:progress="50"
+        android:progressDrawable="@drawable/seekbar_tracker"
+        android:rotation="270"
+        android:splitTrack="false"
+        android:thumb="@drawable/thumb"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:src="@drawable/unmute"
+        android:layout_marginBottom="@dimen/_55sdp"
+        app:layout_constraintBottom_toTopOf="@+id/soundSeekbar"
+        app:layout_constraintEnd_toEndOf="@+id/soundSeekbar"
+        app:layout_constraintStart_toStartOf="@+id/soundSeekbar"
+        app:tint="@color/unchangeableWhite" />
+
+
+    <!--    android:thumbTint="#99000000"-->
+    <TextView
+        android:id="@+id/volumeStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_55sdp"
+        android:textColor="@color/unchangeableWhite"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/soundSeekbar"
+        app:layout_constraintTop_toBottomOf="@+id/soundSeekbar" />
+
+    <SeekBar
+        android:id="@+id/brightnessSeekbar"
+        android:layout_width="@dimen/_130sdp"
+        android:layout_height="wrap_content"
+        android:max="255"
+        android:progress="50"
+        android:progressDrawable="@drawable/seekbar_tracker"
+        android:rotation="270"
+        android:splitTrack="false"
+        android:thumb="@drawable/thumb"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <ImageView
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:src="@drawable/brightness_icon"
+        android:layout_marginBottom="@dimen/_55sdp"
+        app:layout_constraintBottom_toTopOf="@+id/brightnessSeekbar"
+        app:layout_constraintEnd_toEndOf="@+id/brightnessSeekbar"
+        app:layout_constraintStart_toStartOf="@+id/brightnessSeekbar" />
+
+    <TextView
+        android:id="@+id/brightnessStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_55sdp"
+        android:textColor="@color/unchangeableWhite"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/brightnessSeekbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/brightnessSeekbar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

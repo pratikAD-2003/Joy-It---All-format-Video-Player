@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FFFFFFFF</color>
+    <color name="white">#FF000000</color>
+    <color name="red">#F44336</color>
+    <color name="grey">#CB222222</color>
+    <color name="back">#1AFFFFFF</color>
+    <color name="background">#FF000000</color>
+    <color name="playerBack">#FF000000</color>
+    <color name="unchangeableWhite">#FFFFFFFF</color>
+    <color name="unchangeableBlack">#FF000000</color>
+</resources>

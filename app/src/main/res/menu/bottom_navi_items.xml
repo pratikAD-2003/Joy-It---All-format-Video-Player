@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app1="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/all_videos"
+        android:icon="@drawable/video_icon"
+        android:title="@string/all_videos"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/other_videos"
+        android:icon="@drawable/folder_icon"
+        android:title="@string/other_videos"
+        app1:showAsAction="always" />
+</menu>
