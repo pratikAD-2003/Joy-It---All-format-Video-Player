@@ -9,4 +9,5 @@
     <color name="playerBack">#FF000000</color>
     <color name="unchangeableWhite">#FFFFFFFF</color>
     <color name="unchangeableBlack">#FF000000</color>
+    <color name="blurBack">#81000000</color>
 </resources>
