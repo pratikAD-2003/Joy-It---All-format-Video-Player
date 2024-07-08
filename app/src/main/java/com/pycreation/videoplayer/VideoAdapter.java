@@ -1,17 +1,28 @@
 package com.pycreation.videoplayer;
-
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.pycreation.videoplayer.databinding.MainVLyBinding;
 import com.pycreation.videoplayer.databinding.VideoItemsBinding;
 
@@ -19,11 +30,14 @@ import java.util.ArrayList;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyHolder> {
     Context context;
+    Activity activity;
     ArrayList<videoModel> list;
+    InterstitialAd mInterstitialAd;
 
-    public VideoAdapter(Context context, ArrayList<videoModel> list) {
+    public VideoAdapter(Context context, ArrayList<videoModel> list,Activity activity) {
         this.context = context;
         this.list = list;
+        this.activity = activity;
     }
 
     @NonNull
@@ -36,6 +50,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
+        adsInitialization();
         SharedPreferences sp = context.getSharedPreferences("Properties", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         Glide.with(context).load(list.get(position).getVideoUri()).into(holder.binding.videoThumbnail);
@@ -67,6 +82,11 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mInterstitialAd != null) {
+                    mInterstitialAd.show(activity);
+                } else {
+//                    Toast.makeText(context, "Ads is not ready yet", Toast.LENGTH_SHORT).show();
+                }
                 Intent intent = new Intent(context, PlayVideo.class);
                 intent.putExtra("name", list.get(position).getName());
                 intent.putExtra("uri", list.get(position).getVideoUri());
@@ -106,5 +126,58 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyHolder> {
         // Format the result
         String formattedDuration = String.format("%02d:%02d:%02d", hours, minutes, seconds);
         return formattedDuration;
+    }
+
+    private void adsInitialization() {
+        MobileAds.initialize(context, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {
+
+            }
+        });
+
+        // banner ads---------------------------------------------------------
+        AdRequest adRequest = new AdRequest.Builder().build();
+        // interstitial ads---------------------------------------------------
+        InterstitialAd.load(context, context.getResources().getString(R.string.interstitial_id), adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                super.onAdFailedToLoad(loadAdError);
+                Log.d("A6", "FAIL");
+            }
+
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                super.onAdLoaded(interstitialAd);
+                mInterstitialAd = interstitialAd;
+                Log.d("A1", "Done");
+                mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                    @Override
+                    public void onAdDismissedFullScreenContent() {
+                        super.onAdDismissedFullScreenContent();
+                        Log.d("A2", "FSC");
+                    }
+
+                    @Override
+                    public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                        super.onAdFailedToShowFullScreenContent(adError);
+                        Log.d("A3", "FSF");
+                    }
+
+                    @Override
+                    public void onAdImpression() {
+                        super.onAdImpression();
+                        Log.d("A4", "OAI");
+                    }
+
+                    @Override
+                    public void onAdShowedFullScreenContent() {
+                        super.onAdShowedFullScreenContent();
+                        Log.d("A5", "OAFSC");
+                        mInterstitialAd = null;
+                    }
+                });
+            }
+        });
     }
 }

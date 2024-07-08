@@ -23,6 +23,7 @@
         android:background="@color/red"
         app:itemIconTint="@color/unchangeableWhite"
         app:itemTextColor="@color/unchangeableWhite"
+        app:itemActiveIndicatorStyle="@color/red"
         app:itemTextAppearanceActiveBoldEnabled="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

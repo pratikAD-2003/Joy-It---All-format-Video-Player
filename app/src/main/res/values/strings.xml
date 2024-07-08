@@ -1,4 +1,20 @@
 <resources>
+
+    // real id's
+    <string name="app_id">ca-app-pub-2315182175926969~2163932550</string>
+    <string name="banner_id">ca-app-pub-2315182175926969/8813187107</string>
+    <string name="interstitial_id">ca-app-pub-2315182175926969/2624366477</string>
+    <string name="native_ad_unit_id">ca-app-pub-2315182175926969/4043296873</string>
+    <string name="ad_attribution">ads</string>
+
+
+    <!--    // testing id-->
+<!--    <string name="interstitial_id">ca-app-pub-3940256099942544/1033173712</string>-->
+<!--    <string name="banner_id">ca-app-pub-3940256099942544/6300978111</string>-->
+<!--    <string name="app_id">ca-app-pub-2315182175926969~8090846963</string>-->
+    <!--        <string name="native_ad_unit_id">ca-app-pub-3940256099942544/2247696110</string>-->
+    <!--    <string name="ad_attribution">ads</string>-->
+
     <string name="app_name">Joy It - All format Video Player</string>
     <string name="all_videos">All Videos</string>
     <string name="other_videos">Browse</string>

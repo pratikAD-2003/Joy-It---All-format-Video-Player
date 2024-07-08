@@ -58,7 +58,7 @@ public class PlayVideo extends AppCompatActivity {
     TextView set_One, setTwo, setThree, setFour, setFive, setSix, setSeven, setEight;
     AudioManager audioManager;
     SeekBar volumeSeek, brightnessSeek;
-    TextView volumeStatus, brightnessStatus;
+    TextView volumeStatus, brightnessStatus, videoDuration;
     Window window;
     int brg;
     long watched;
@@ -66,7 +66,9 @@ public class PlayVideo extends AppCompatActivity {
     ContentResolver contentResolver;
     PictureInPictureParams.Builder pictureInPicture;
     Handler handler = new Handler();
+    boolean setSwipeVideoOnLock = false, isVideoEnd = false;
 
+    ConstraintLayout leftDuration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +102,7 @@ public class PlayVideo extends AppCompatActivity {
         volumeStatus = findViewById(R.id.volumeStatus);
         brightnessStatus = findViewById(R.id.brightnessStatus);
         selectAudio = findViewById(R.id.SelectAudio);
+        videoDuration = findViewById(R.id.exo_duration);
 
         videoTitle = getIntent().getStringExtra("name");
         uri = getIntent().getStringExtra("uri");
@@ -107,6 +110,20 @@ public class PlayVideo extends AppCompatActivity {
         listSize = getIntent().getIntExtra("size", 0);
         type = getIntent().getIntExtra("type", 0);
         title.setText(videoTitle);
+
+
+        videoDuration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        long left = exoPlayer.getDuration() - exoPlayer.getCurrentPosition();
+                        videoDuration.setText("- " + durationToString(left));
+                    }
+                }, 1000);
+            }
+        });
 
         handler.postDelayed(new Runnable() {
             @Override
@@ -315,6 +332,7 @@ public class PlayVideo extends AppCompatActivity {
                 brightnessSeek.setVisibility(View.INVISIBLE);
                 brightnessStatus.setVisibility(View.INVISIBLE);
                 isLocked = true;
+                setSwipeVideoOnLock = true;
             }
         });
 
@@ -343,6 +361,7 @@ public class PlayVideo extends AppCompatActivity {
                     repeatVideo.setVisibility(VISIBLE);
                 }
                 isLocked = false;
+                setSwipeVideoOnLock = false;
             }
         });
 
@@ -625,6 +644,7 @@ public class PlayVideo extends AppCompatActivity {
             @Override
             public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
                 if (playbackState == ExoPlayer.STATE_ENDED) {
+                    isVideoEnd = true;
                     if (isRepeat) {
                         exoPlayer.seekTo(0);
                     }
@@ -638,48 +658,50 @@ public class PlayVideo extends AppCompatActivity {
             GestureDetector gestureDetector = new GestureDetector(new GestureDetector.SimpleOnGestureListener() {
                 @Override
                 public boolean onFling(@Nullable MotionEvent e1, @NonNull MotionEvent e2, float velocityX, float velocityY) {
-                    // get X and Y differences
-                    float xDiff = e2.getX() - e1.getX();
-                    float yDiff = e2.getY() - e1.getY();
-                    try {
-                        // check condition
-                        if (abs(xDiff) > abs(yDiff)) {
-                            // when x is greater than y
-                            if (abs(xDiff) > threshold && abs(velocityX) > velocity_threshold) {
-                                if (xDiff > 0) {
-                                    // when swipe left
+                    if (!setSwipeVideoOnLock) {
+                        // get X and Y differences
+                        float xDiff = e2.getX() - e1.getX();
+                        float yDiff = e2.getY() - e1.getY();
+                        try {
+                            // check condition
+                            if (abs(xDiff) > abs(yDiff)) {
+                                // when x is greater than y
+                                if (abs(xDiff) > threshold && abs(velocityX) > velocity_threshold) {
+                                    if (xDiff > 0) {
+                                        // when swipe left
 //                                    Toast.makeText(PlayVideo.this, "Left", Toast.LENGTH_SHORT).show();
-                                    exoPlayer.seekTo(exoPlayer.getCurrentPosition() + 10000);
-                                    binding.ForAnim.setVisibility(VISIBLE);
-                                    binding.FAnimText.setVisibility(VISIBLE);
-                                    Handler handler = new Handler();
-                                    handler.postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            binding.ForAnim.setVisibility(View.INVISIBLE);
-                                            binding.FAnimText.setVisibility(View.INVISIBLE);
-                                        }
-                                    }, 500);
-                                } else {
-                                    // when swipe right
+                                        exoPlayer.seekTo(exoPlayer.getCurrentPosition() + 10000);
+                                        binding.ForAnim.setVisibility(VISIBLE);
+                                        binding.FAnimText.setVisibility(VISIBLE);
+                                        Handler handler = new Handler();
+                                        handler.postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                binding.ForAnim.setVisibility(View.INVISIBLE);
+                                                binding.FAnimText.setVisibility(View.INVISIBLE);
+                                            }
+                                        }, 500);
+                                    } else {
+                                        // when swipe right
 //                                    Toast.makeText(PlayVideo.this, "Right", Toast.LENGTH_SHORT).show();
-                                    exoPlayer.seekTo(exoPlayer.getCurrentPosition() - 10000);
-                                    binding.BackAnim.setVisibility(VISIBLE);
-                                    binding.BAnimText.setVisibility(VISIBLE);
-                                    Handler handler = new Handler();
-                                    handler.postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            binding.BackAnim.setVisibility(View.INVISIBLE);
-                                            binding.BAnimText.setVisibility(View.INVISIBLE);
-                                        }
-                                    }, 500);
+                                        exoPlayer.seekTo(exoPlayer.getCurrentPosition() - 10000);
+                                        binding.BackAnim.setVisibility(VISIBLE);
+                                        binding.BAnimText.setVisibility(VISIBLE);
+                                        Handler handler = new Handler();
+                                        handler.postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                binding.BackAnim.setVisibility(View.INVISIBLE);
+                                                binding.BAnimText.setVisibility(View.INVISIBLE);
+                                            }
+                                        }, 500);
+                                    }
+                                    return true;
                                 }
-                                return true;
                             }
-                        }
-                    } catch (Exception e) {
+                        } catch (Exception e) {
 
+                        }
                     }
                     return false;
                 }
@@ -721,7 +743,7 @@ public class PlayVideo extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         SharedPreferences sp = getSharedPreferences("Watched", MODE_PRIVATE);
-        watched =  sp.getLong(videoTitle, 0);
+        watched = sp.getLong(videoTitle, 0);
         exoPlayer.seekTo(watched);
     }
 
@@ -742,6 +764,20 @@ public class PlayVideo extends AppCompatActivity {
             exoPlayer.stop();
             exoPlayer.release();
         }
+    }
+
+    public static String durationToString(long durationInMillis) {
+        // Calculate hours, minutes, seconds, and milliseconds
+        long hours = durationInMillis / (1000 * 60 * 60);
+        long remainingMillis = durationInMillis % (1000 * 60 * 60);
+        long minutes = remainingMillis / (1000 * 60);
+        long remainingSeconds = (remainingMillis % (1000 * 60));
+        long seconds = remainingSeconds / 1000;
+        long milliseconds = remainingSeconds % 1000;
+
+        // Format the result
+        String formattedDuration = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        return formattedDuration;
     }
 
 }

@@ -7,7 +7,8 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.videoplayer"
+//        applicationId = "com.example.videoplayer"
+        applicationId = "com.videoplayer.joyit"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -53,4 +54,5 @@ dependencies {
     implementation ("com.google.android.exoplayer:exoplayer-core:2.19.1")
     implementation ("com.google.android.exoplayer:exoplayer-dash:2.19.1")
     implementation ("com.google.android.exoplayer:exoplayer-ui:2.19.1")
+    implementation ("com.google.android.gms:play-services-ads:23.1.0")
 }
