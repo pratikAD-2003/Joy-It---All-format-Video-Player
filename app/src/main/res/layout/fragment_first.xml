@@ -7,14 +7,26 @@
     android:background="@color/white"
     tools:context=".FirstFragment">
 
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/bannerAdsFirstFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        ads:adSize="BANNER"
+        android:layout_marginBottom="10dp"
+        ads:adUnitId="@string/banner_id">
+    </com.google.android.gms.ads.AdView>
+
     <TextView
         android:id="@+id/VideoSize"
+        android:layout_below="@id/bannerAdsFirstFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
         android:gravity="center"
         android:textColor="@color/red"
         android:textSize="@dimen/_12sdp"

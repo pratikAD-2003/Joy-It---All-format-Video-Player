@@ -143,7 +143,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyHolder> {
             @Override
             public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                 super.onAdFailedToLoad(loadAdError);
-                Log.d("A6", "FAIL");
             }
 
             @Override

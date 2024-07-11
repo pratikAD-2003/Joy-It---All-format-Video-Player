@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,10 @@ import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.VideoOptions;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.android.gms.ads.nativead.NativeAdOptions;
 import com.google.android.gms.ads.nativead.NativeAdView;
@@ -87,6 +91,25 @@ public class SecondFragment extends Fragment {
         binding = FragmentSecondBinding.inflate(inflater, container, false);
         // Inflate the layout for this fragment
 
+//        MobileAds.initialize(getContext(), new OnInitializationCompleteListener() {
+//            @Override
+//            public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {
+//            }
+//        });
+//
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        binding.bannerAdsSecondFragment.loadAd(adRequest);
+
+        Handler handler = new Handler();
+        AdRequest adRequest = new AdRequest.Builder().build();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                binding.bannerAdsSecondFragment.loadAd(adRequest);
+            }
+        }, 2000);
+
+        loadNativeAds();
         layoutManager = new LinearLayoutManager(getContext());
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.FolderRV.getContext(), layoutManager.getOrientation());
         dividerItemDecoration.setDrawable(getContext().getResources().getDrawable(R.drawable.custom_divider));
@@ -97,7 +120,6 @@ public class SecondFragment extends Fragment {
         adapter = new FolderAdapter(getContext(), FirstFragment.list2);
         binding.FolderRV.setAdapter(adapter);
 
-        loadNativeAds();
         return binding.getRoot();
     }
 
@@ -116,10 +138,16 @@ public class SecondFragment extends Fragment {
                 }
                 mNativeAd = nativeAd;
 
-                NativeAdView adView = (NativeAdView) getLayoutInflater().inflate(R.layout.ad_native,null);
-                populateNativeAdView(nativeAd,adView);
-                binding.adsFrame.removeAllViews();
-                binding.adsFrame.addView(adView);
+                NativeAdView adView = (NativeAdView) getLayoutInflater().inflate(R.layout.ad_native, null);
+                populateNativeAdView(nativeAd, adView);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        binding.adsFrame.removeAllViews();
+                        binding.adsFrame.addView(adView);
+                    }
+                }, 5000);
             }
         });
 
@@ -135,7 +163,7 @@ public class SecondFragment extends Fragment {
             @Override
             public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                 super.onAdFailedToLoad(loadAdError);
-                Log.d("ADDDDD",loadAdError.toString());
+                Log.d("ADDDDD", loadAdError.toString());
             }
 
             @Override
@@ -220,5 +248,12 @@ public class SecondFragment extends Fragment {
         // This method tells the Google Mobile Ads SDK that you have finished populating your
         // native ad view with this native ad.
         adView.setNativeAd(nativeAd);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mNativeAd.destroy();
+        binding.bannerAdsSecondFragment.destroy();
     }
 }

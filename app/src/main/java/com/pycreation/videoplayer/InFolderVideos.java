@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +19,10 @@ import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.VideoOptions;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.android.gms.ads.nativead.NativeAdOptions;
 import com.google.android.gms.ads.nativead.NativeAdView;
@@ -45,10 +49,26 @@ public class InFolderVideos extends AppCompatActivity {
         setContentView(binding.getRoot());
         folderName = getIntent().getStringExtra("folderName");
 
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {
+            }
+        });
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                binding.bannerAdsInFolder.loadAd(adRequest);
+            }
+        }, 2000);
+
+
         list.clear();
         for (videoModel a : FirstFragment.list) {
             if (Objects.equals(a.getFolderName(), folderName)) {
-                videoModel model = new videoModel(a.getSize(), a.getPath(), a.getDuration(), a.getDate(), a.getVideoUri(), a.getFolderId(), a.getFolderName(), a.getName(),1);
+                videoModel model = new videoModel(a.getSize(), a.getPath(), a.getDuration(), a.getDate(), a.getVideoUri(), a.getFolderId(), a.getFolderName(), a.getName(), 1);
                 list.add(model);
             }
         }
@@ -75,7 +95,6 @@ public class InFolderVideos extends AppCompatActivity {
     }
 
 
-
     private void loadNativeAds() {
         AdLoader.Builder adBuilder = new AdLoader.Builder(this, getResources().getString(R.string.native_ad_unit_id));
         adBuilder.forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
@@ -90,10 +109,16 @@ public class InFolderVideos extends AppCompatActivity {
                 }
                 mNativeAd = nativeAd;
 
-                NativeAdView adView = (NativeAdView) getLayoutInflater().inflate(R.layout.ad_native,null);
-                populateNativeAdView(nativeAd,adView);
-                binding.adsFrame.removeAllViews();
-                binding.adsFrame.addView(adView);
+                NativeAdView adView = (NativeAdView) getLayoutInflater().inflate(R.layout.ad_native, null);
+                populateNativeAdView(nativeAd, adView);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        binding.adsFrame.removeAllViews();
+                        binding.adsFrame.addView(adView);
+                    }
+                }, 5000);
             }
         });
 
@@ -109,7 +134,7 @@ public class InFolderVideos extends AppCompatActivity {
             @Override
             public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                 super.onAdFailedToLoad(loadAdError);
-                Log.d("ADDDDD",loadAdError.toString());
+                Log.d("ADDDDD", loadAdError.toString());
             }
 
             @Override
